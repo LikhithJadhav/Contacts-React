@@ -1,16 +1,22 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Plus, User, Mail, Phone, X, Check } from 'lucide-react';
 
+// Helper function to get correct asset URLs with base path
+const getImageURL = (path) => {
+  // import.meta.env.BASE_URL is '/Contacts-React/' for GitHub Pages
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
+};
+
 // Mock initial contacts data
 const initialContacts = [
-  { id: 1, name: 'Abraxas', email: 'abraxas@gmail.com', phone: '+91 99999 99990', image: '/images/abraxas.jpg' },
-  { id: 2, name: 'Canterella', email: 'cantarella@gmail.com', phone: '+91 99999 99991' , image: '/images/canterella.jpg'},
-  { id: 3, name: 'Carthethiya', email: 'carth@gmail.com', phone: '+91 99999 99992' , image: '/images/carthethiya.jpg'},
-  { id: 4, name: 'Brant', email: 'brant@gmail.com', phone: '+91 99999 99993' , image: '/images/brant.jpg'},
-  { id: 5, name: 'Pheobe', email: 'peeb@gmail.com', phone: '+91 99999 99994' , image: '/images/pheobe.jpg'},
-  { id: 6, name: 'Chisa', email: 'chisa@gmail.com', phone: '+91 99999 99995' , image: '/images/chisa.jpg'},
-  { id: 7, name: 'Zani', email: 'zani@gmail.com', phone: '+91 99999 99996' , image: '/images/zani.jpg'},
-  { id: 8, name: 'Jinshi', email: 'jinny@gmail.com', phone: '+91 99999 99997' , image: '/images/jinshi.jpg'},
+  { id: 1, name: 'Abraxas', email: 'abraxas@gmail.com', phone: '+91 99999 99990', image: getImageURL('/images/abraxas.jpg') },
+  { id: 2, name: 'Canterella', email: 'cantarella@gmail.com', phone: '+91 99999 99991' , image: getImageURL('/images/canterella.jpg')},
+  { id: 3, name: 'Carthethiya', email: 'carth@gmail.com', phone: '+91 99999 99992' , image: getImageURL('/images/carthethiya.jpg')},
+  { id: 4, name: 'Brant', email: 'brant@gmail.com', phone: '+91 99999 99993' , image: getImageURL('/images/brant.jpg')},
+  { id: 5, name: 'Pheobe', email: 'peeb@gmail.com', phone: '+91 99999 99994' , image: getImageURL('/images/pheobe.jpg')},
+  { id: 6, name: 'Chisa', email: 'chisa@gmail.com', phone: '+91 99999 99995' , image: getImageURL('/images/chisa.jpg')},
+  { id: 7, name: 'Zani', email: 'zani@gmail.com', phone: '+91 99999 99996' , image: getImageURL('/images/zani.jpg')},
+  { id: 8, name: 'Jinshi', email: 'jinny@gmail.com', phone: '+91 99999 99997' , image: getImageURL('/images/jinshi.jpg')},
 ];
 
 export default function ContactList() {
