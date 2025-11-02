@@ -29,13 +29,13 @@ Each contact includes a name, email, phone number (auto-formatted with `+91`), a
 
 ## 🧩 Features
 
-- 🔍 **Search Functionality:** Instantly filter contacts by name or email.  
-- ➕ **Add New Contact:** Add contacts with validation for email and phone number formats.  
-- 🇮🇳 **Auto Phone Formatting:** Automatically adds `+91` prefix and spaces after 5 digits.  
-- 🧹 **Delete Contacts:** Remove any contact with a confirmation prompt.  
-- 💾 **Image Support:** Add custom image URLs for contacts (uses placeholder initials if none).  
-- 🎨 **Modern UI:** Styled with Tailwind CSS and clean iconography via Lucide React.  
-- ⚡ **Client-Side Only:** Runs entirely in the browser — no backend needed.
+- **Search Functionality:** Instantly filter contacts by name or email.  
+- **Add New Contact:** Add contacts with validation for email and phone number formats.  
+- **Auto Phone Formatting:** Automatically adds `+91` prefix and spaces after 5 digits.  
+- **Delete Contacts:** Remove any contact with a confirmation prompt.  
+- **Image Support:** Add custom image URLs for contacts (uses placeholder initials if none).  
+- **Modern UI:** Styled with Tailwind CSS and clean iconography via Lucide React.  
+- **Client-Side Only:** Runs entirely in the browser — no backend needed.
 
 ---
 
