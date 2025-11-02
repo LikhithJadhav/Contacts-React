@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Plus, User, Mail, Phone, X, Check } from 'lucide-react';
+import { Search, Plus, User, Mail, Phone, X, Check, TrashIcon } from 'lucide-react';
 
 // Helper function to get correct asset URLs with base path
 const getImageURL = (path) => {
-  // import.meta.env.BASE_URL is '/Contacts-React/' for GitHub Pages
+  // for GitHub Pages
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`;
 };
 
-// Mock initial contacts data
+// Mock initial contacts 
 const initialContacts = [
   { id: 1, name: 'Abraxas', email: 'abraxas@gmail.com', phone: '+91 99999 99990', image: getImageURL('/images/abraxas.jpg') },
   { id: 2, name: 'Canterella', email: 'cantarella@gmail.com', phone: '+91 99999 99991' , image: getImageURL('/images/canterella.jpg')},
@@ -57,7 +57,11 @@ const filteredContacts = useMemo(() => {
     if (!newContact.name.trim() || !newContact.email.trim()) {
       return;
     }
-
+    const phoneDigits = newContact.phone.replace(/\D/g, '');
+    if (!phoneDigits.startsWith('91') || phoneDigits.length !== 12) {
+      alert("Please enter a valid 10-digit phone number after +91");
+      return;
+    }
     const contact = {
       id: Date.now(),
       ...newContact
@@ -153,11 +157,22 @@ const filteredContacts = useMemo(() => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone <span className="text-red-500">*</span>
+                    </label>
                   <input
                     type="tel"
+                    required
                     value={newContact.phone}
-                    onChange={(e) => setNewContact({ ...newContact, phone: e.target.value })}
+                  pattern="^\+91 [0-9]{5} [0-9]{5}$"
+                  title="Enter number as +91 99999 99999"      
+                    onChange={(e) => {
+                      let input = e.target.value.replace(/\D/g, ''); // remove non-digits
+                      if (!input.startsWith('91')) input = '91' + input; 
+                      input = input.slice(0, 12); 
+                      const formatted = `+${input.slice(0, 2)} ${input.slice(2, 7)}${input.length > 7 ? ' ' + input.slice(7) : ''}`;
+                      setNewContact({ ...newContact, phone: formatted });
+                    }}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     placeholder="+91 xxxxx xxxxx"
                   />
@@ -232,9 +247,18 @@ const filteredContacts = useMemo(() => {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 text-lg mb-1 truncate">
+                   <div className="flex justify-between items-center mb-1">
+                    <h3 className="font-semibold text-gray-900 text-lg truncate">
                       {contact.name}
                     </h3>
+                    <button
+                      onClick={() => handleDeleteContact(contact.id)}
+                      className="text-red-500 hover:text-red-700 transition-colors flex-shrink-0"
+                      title="Delete Contact"
+                    >
+                      <TrashIcon size={18} />
+                    </button>
+                  </div>
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <Mail size={14} className="flex-shrink-0 text-gray-400" />
@@ -253,14 +277,7 @@ const filteredContacts = useMemo(() => {
                     </div>
                   </div>
                 </div>
-                 {/* Delete button */}
-              <button
-                onClick={() => handleDeleteContact(contact.id)}
-                className="text-red-500 hover:text-red-700 transition-colors"
-                title="Delete Contact"
-              >
-                <X size={18} />
-              </button>
+               
               </div>
             ))}
           </div>
